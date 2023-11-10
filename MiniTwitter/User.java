@@ -2,35 +2,34 @@ package MiniTwitter;
 
 import java.util.*;
 
-public class User {
-    private int id;
-    private String userName;
-    private List<Integer> followers;
-    private List<Integer> followings;
+public class User extends Member {
+
+    private List<User> followers;
+    private List<User> followings;
     private final NotificationService notificationService;
+    private Dictionary<User, String> feedList;
 
     public User(int id, String name) {
-        this.id = id;
-        userName = name;
+        super(id, name);
         followers = new ArrayList<>();
         followings = new ArrayList<>();
-        followings.add(id);
         notificationService = new NotificationService();
+        feedList = new Hashtable<>();
     }
 
-    public int getID() {
-        return id;
-    }
+    // public int getID() {
+    // return id;
+    // }
 
-    public String getUserName() {
-        return userName;
-    }
+    // public String getUserName() {
+    // return userName;
+    // }
 
-    public List<Integer> getFollowers() {
+    public List<User> getFollowers() {
         return followers;
     }
 
-    public List<Integer> getFollowings() {
+    public List<User> getFollowings() {
         return followings;
     }
 
@@ -38,13 +37,19 @@ public class User {
         return notificationService;
     }
 
-    public void update() {
-        // see new feed
+    public Dictionary<User, String> getFeedList() {
+        return feedList;
     }
-    // feed list
 
-    // postFeed()
-    //
+    public void postFeed(String msg) {
+        feedList.put(this, msg);
+        notificationService.newFeed(this, msg);
+    }
+
+    public void update(User u, String msg) {
+        feedList.put(u, msg);
+    }
+
 }
 // Users can choose to follow other users (not user groups) by providing the
 // target user
