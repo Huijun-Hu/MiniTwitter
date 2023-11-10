@@ -2,15 +2,25 @@ package MiniTwitter;
 
 import java.util.*;
 
-public class UserGroup {
-    private int id;
-    private String GroupName;
+public class UserGroup extends Member {
+
+    private List<Member> members;
 
     public UserGroup(int id, String name) {
-        this.id = id;
-        this.GroupName = name;
+        super(id, name);
+        members = new ArrayList<>();
     }
 
+    @Override
+    public int getSize() {
+        int sum = 0;
+
+        for (Member m : members) {
+            sum += m.getSize();
+        }
+
+        return sum;
+    }
 }
 // A user group has an unique ID, which can be used to group users. A user group
 // can

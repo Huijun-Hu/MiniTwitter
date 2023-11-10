@@ -8,12 +8,14 @@ public class User extends Member {
     private List<User> followings;
     private final NotificationService notificationService;
     private Dictionary<User, String> feedList;
+    private final int size = 1;
 
     public User(int id, String name) {
         super(id, name);
+        notificationService = new NotificationService();
+
         followers = new ArrayList<>();
         followings = new ArrayList<>();
-        notificationService = new NotificationService();
         feedList = new Hashtable<>();
     }
 
@@ -41,6 +43,16 @@ public class User extends Member {
         return feedList;
     }
 
+    public void follow(User u) {
+        this.followings.add(u);
+        u.beFollowedBy(this);
+
+    }
+
+    public void beFollowedBy(User u) {
+        this.followers.add(u);
+    }
+
     public void postFeed(String msg) {
         feedList.put(this, msg);
         notificationService.newFeed(this, msg);
@@ -48,6 +60,11 @@ public class User extends Member {
 
     public void update(User u, String msg) {
         feedList.put(u, msg);
+    }
+
+    @Override
+    int getSize() {
+        return size;
     }
 
 }

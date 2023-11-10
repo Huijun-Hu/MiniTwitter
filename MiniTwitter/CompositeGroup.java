@@ -10,11 +10,11 @@ public class CompositeGroup extends UserGroup {
         members = new ArrayList<>();
     }
 
-    public int totalMember() {
+    public int getSize() {
         int sum = 0;
 
         for (Member m : members) {
-            sum += m.size();
+            sum += m.getSize();
         }
 
         return sum;
