@@ -6,39 +6,36 @@ import java.awt.*;
 
 public class GUI {
 
-    public GUI() {
-        JFrame frame = new JFrame();
-        frame.setSize(1000, 800);
-        frame.setResizable(false);
-        frame.setTitle("Mini Twitter");
+    // MainFrame() {
 
-        // exit out application on closing window
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // JFrame frame = new JFrame();
+    // frame.setSize(1000, 800);
+    // frame.setResizable(false);
+    // frame.setTitle("Mini Twitter");
 
-        ImageIcon logo = new ImageIcon("logo.png");
-        frame.setIconImage(logo.getImage());
+    // // exit out application on closing window
+    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+    // ImageIcon logo = new ImageIcon("logo.png");
+    // frame.setIconImage(logo.getImage());
 
-        // JButton button = new JButton("Click me!");
-        // label = new JLabel("Number of click: 0");
-        // button.addActionListener(this);
+    // frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 
-        // JPanel panel = new JPanel();
-        // panel.setBorder(BorderFactory.createEmptyBorder(300, 300, 100, 300));
-        // panel.setLayout(new GridLayout(0, 1));
-        // panel.add(button);
-        // panel.add(label);
+    // JButton button = new JButton("Click me!");
+    // label = new JLabel("Number of click: 0");
+    // button.addActionListener(this);
 
-        // frame.add(panel, BorderLayout.CENTER);
+    // JPanel panel = new JPanel();
+    // panel.setBorder(BorderFactory.createEmptyBorder(300, 300, 100, 300));
+    // panel.setLayout(new GridLayout(0, 1));
+    // panel.add(button);
+    // panel.add(label);
 
-        // frame.pack();
-        frame.setVisible(true);
+    // frame.add(panel, BorderLayout.CENTER);
 
-    }
+    // frame.pack();
+    // frame.setVisible(true);
 
-    public static void main(String[] args) {
-        new GUI();
-    }
+    // }
 
 }
