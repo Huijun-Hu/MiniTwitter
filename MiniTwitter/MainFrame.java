@@ -10,6 +10,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
     JPanel TreeViewPanel;
     JTree tree;
+    DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root");
 
     JTextField UserId;
     JTextField UserName;
@@ -112,7 +113,6 @@ public class MainFrame extends JFrame implements ActionListener {
         positivityButton.setText("Show Message Positivity");
         positivityButton.setFocusable(false);
 
-        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root");
         tree = new JTree(rootNode);
         tree.setBounds(10, 10, 180, 480);
 
@@ -150,6 +150,11 @@ public class MainFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    public void addMember(Integer id, String name, DefaultMutableTreeNode parent) {
+
+        parent.add(new DefaultMutableTreeNode(new User(id, name)));
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == userDetailButton) {
@@ -158,7 +163,8 @@ public class MainFrame extends JFrame implements ActionListener {
 
         if (e.getSource() == addUserButton) {
             if (UserId.getText() != null && UserName.getText() != null) {
-                UserBank.add(new User(Integer.parseInt(UserId.getText()), UserName.getText()));
+                // add to only root node
+                addMember(Integer.parseInt(UserId.getText()), UserName.getText(), rootNode);
             }
         }
     }

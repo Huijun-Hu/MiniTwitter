@@ -1,10 +1,22 @@
 package MiniTwitter;
 
+import java.util.*;
+
+import javax.swing.JFrame;
+
 //Singleton pattern
 public class ControlPanel {
     protected static ControlPanel instance;
+    private HashMap<Integer, User> UserBank;
+
+    private static JFrame frame;
+    // private JPanel treePanel;
+    // private JPanel addUserPanel;
+    // private JPanel openUserViewPanel;
+    // private JPanel showInfoPanel;
 
     protected ControlPanel() {
+        initialize();
     }
 
     public static ControlPanel getInstance() {
@@ -14,7 +26,18 @@ public class ControlPanel {
         return instance;
     }
 
-    // public void newUser()
+    public void initialize() {
+        frame = new MainFrame();
+        UserBank = new HashMap<>();
+
+    }
+
+    // public void addUser
+
+    // public void newUser(id, name){
+    // Member u = new User(id,name);
+    // }
+
     // public void newGroups()
 
     // public int countUsers()

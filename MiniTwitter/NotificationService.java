@@ -6,7 +6,7 @@ public class NotificationService {
     private List<User> followerList;
 
     public NotificationService(User u) {
-        this.followerList = u.getFollowers()
+        this.followerList = u.getFollowers();
     }
 
     public void newFeed(User u, String msg) {
