@@ -1,6 +1,8 @@
 package MiniTwitter;
 
-public abstract class Member {
+import javax.swing.tree.TreeNode;
+
+public abstract class Member implements TreeNode {
 
     private int id;
     private String name;

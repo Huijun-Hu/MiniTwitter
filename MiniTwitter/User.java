@@ -2,6 +2,9 @@ package MiniTwitter;
 
 import java.util.*;
 
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+
 public class User extends Member {
 
     private List<User> followers;
@@ -12,7 +15,7 @@ public class User extends Member {
 
     public User(int id, String name) {
         super(id, name);
-        notificationService = new NotificationService();
+        notificationService = new NotificationService(this);
 
         followers = new ArrayList<>();
         followings = new ArrayList<>();
@@ -65,6 +68,46 @@ public class User extends Member {
     @Override
     int getSize() {
         return size;
+    }
+
+    @Override
+    public TreeNode getChildAt(int childIndex) {
+        return null;
+    }
+
+    @Override
+    public int getChildCount() {
+        return 0;
+    }
+
+    @Override
+    public TreeNode getParent() {
+        return null;
+    }
+
+    @Override
+    public int getIndex(TreeNode node) {
+        return 0;
+    }
+
+    @Override
+    public boolean getAllowsChildren() {
+        return false;
+    }
+
+    @Override
+    public boolean isLeaf() {
+        return true;
+    }
+
+    @Override
+    public Enumeration<? extends TreeNode> children() {
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
     }
 
 }
