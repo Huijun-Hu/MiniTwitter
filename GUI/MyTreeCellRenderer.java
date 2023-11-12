@@ -1,12 +1,13 @@
-package MiniTwitter;
+package GUI;
 
 import java.awt.Component;
-import java.awt.Container;
 
 import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+
+import MiniTwitter.UserGroup;
 
 public class MyTreeCellRenderer extends DefaultTreeCellRenderer {
 
@@ -22,11 +23,7 @@ public class MyTreeCellRenderer extends DefaultTreeCellRenderer {
                 // your root node, since you just put a String as a user obj
                 setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
             }
-            // } else if (node.getUserObject() instanceof UserGroup) {
 
-            // setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
-
-            // }
         }
 
         return this;

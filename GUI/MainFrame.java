@@ -1,19 +1,26 @@
-package MiniTwitter;
+package GUI;
 
 import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
+
+import MiniTwitter.ControlPanel;
+import MiniTwitter.Member;
+import MiniTwitter.User;
+import MiniTwitter.UserGroup;
 
 import java.awt.*;
 import java.awt.event.*;
 
 public class MainFrame extends JFrame implements ActionListener {
 
+    private final ControlPanel ADMIN = ControlPanel.getInstance();
     JPanel TreeViewPanel;
     JTree tree;
     DefaultMutableTreeNode rootNode;
+    Member root;
     DefaultTreeModel treeModel;
 
     JTextField UserId;
@@ -34,7 +41,9 @@ public class MainFrame extends JFrame implements ActionListener {
     JButton totalMsgButton;
     JButton positivityButton;
 
-    MainFrame() {
+    DefaultMutableTreeNode selection;
+
+    public MainFrame() {
         this.setSize(800, 600);
         this.setResizable(false);
         this.setTitle("Mini Twitter");
@@ -117,12 +126,27 @@ public class MainFrame extends JFrame implements ActionListener {
         positivityButton.setText("Show Message Positivity");
         positivityButton.setFocusable(false);
 
-        rootNode = new DefaultMutableTreeNode(new UserGroup(000, "Root"));
+        root = new UserGroup(000, "Root");
+        rootNode = new DefaultMutableTreeNode(root);
         tree = new JTree(rootNode);
         tree.setBounds(10, 10, 180, 480);
         tree.setCellRenderer(new MyTreeCellRenderer());
         treeModel = (DefaultTreeModel) tree.getModel();
 
+        tree.addTreeSelectionListener(new TreeSelectionListener() {
+            @Override
+            public void valueChanged(TreeSelectionEvent e) {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+
+                /* if nothing is selected */
+                if (node == null)
+                    return;
+
+                /* retrieve the node that was selected */
+                selection = node;
+            }
+
+        });
         TreeViewPanel.add(tree);
         this.add(TreeViewPanel);
         this.add(UserId);
@@ -149,48 +173,37 @@ public class MainFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public void addUser(Integer id, String name, DefaultMutableTreeNode parent) {
-
-        // need edition
-        parent.add(new DefaultMutableTreeNode(new User(id, name)));
-        treeModel.reload();
-    }
-
-    public void addGroup(Integer id, String name, DefaultMutableTreeNode parent) {
-
-        // need edition
-        parent.add(new DefaultMutableTreeNode(new UserGroup(id, name), true));
-        treeModel.reload();
-
-    }
-
-    public int countTotalUser() {
-        return rootNode.getChildCount();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        DefaultMutableTreeNode selection = rootNode;
+        // DefaultMutableTreeNode selection = rootNode;
         if (e.getSource() == userDetailButton) {
-            // UserFrame userWindow = new UserFrame();
+            User u = (User) selection.getUserObject();
+            System.out.println(u.getName());
+            UserFrame userWindow = new UserFrame(u);
         }
 
         if (e.getSource() == addUserButton) {
             if (UserId.getText() != null && UserName.getText() != null) {
                 // add to only root node
-                addUser(Integer.parseInt(UserId.getText()), UserName.getText(), selection);
+                ADMIN.addUser(Integer.parseInt(UserId.getText()), UserName.getText(), selection);
+                UserId.setText("");
+                UserName.setText("");
+                treeModel.reload();
             }
         }
 
         if (e.getSource() == addGroupButton) {
             if (GroupId.getText() != null && GroupName.getText() != null) {
                 // add to only root node
-                addGroup(Integer.parseInt(GroupId.getText()), GroupName.getText(), selection);
+                ADMIN.addGroup(Integer.parseInt(GroupId.getText()), GroupName.getText(), selection);
+                GroupId.setText("");
+                GroupName.setText("");
+                treeModel.reload();
             }
         }
 
         if (e.getSource() == totalUserButton) {
-            System.out.print(countTotalUser());
+            ADMIN.countTotalUser(rootNode);
         }
     }
 

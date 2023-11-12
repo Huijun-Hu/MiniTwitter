@@ -3,7 +3,7 @@ package MiniTwitter;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-public abstract class Member implements MutableTreeNode {
+public abstract class Member extends Object implements MutableTreeNode {
 
     private int id;
     private String name;
@@ -66,4 +66,5 @@ public abstract class Member implements MutableTreeNode {
     public String toString() {
         return this.getName();
     }
+
 }

@@ -1,8 +1,13 @@
 package MiniTwitter;
 
+import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.util.*;
 
 import javax.swing.JFrame;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
+
+import GUI.MainFrame;
 
 //Singleton pattern
 public class ControlPanel {
@@ -10,13 +15,9 @@ public class ControlPanel {
     private HashMap<Integer, User> UserBank;
 
     private static JFrame frame;
-    // private JPanel treePanel;
-    // private JPanel addUserPanel;
-    // private JPanel openUserViewPanel;
-    // private JPanel showInfoPanel;
 
     protected ControlPanel() {
-        initialize();
+        // initialize();
     }
 
     public static ControlPanel getInstance() {
@@ -32,13 +33,29 @@ public class ControlPanel {
 
     }
 
-    // public void addUser
+    public void addUser(Integer id, String name, DefaultMutableTreeNode parent) {
 
-    // public void newUser(id, name){
-    // Member u = new User(id,name);
-    // }
+        parent.add(new DefaultMutableTreeNode(new User(id, name)));
+    }
 
-    // public void newGroups()
+    public void addGroup(Integer id, String name, DefaultMutableTreeNode parent) {
+
+        UserGroup obj = (UserGroup) parent.getUserObject();
+        UserGroup m = new UserGroup(id, name);
+        obj.addMember(m);
+        parent.add(new DefaultMutableTreeNode(m, true));
+
+    }
+
+    public void countTotalUser(DefaultMutableTreeNode rootNode) {
+
+        Member m = (Member) rootNode.getUserObject();
+        System.out.print(m.getChildCount());
+    }
+
+    public void countTotalGroup(DefaultMutableTreeNode rootNode) {
+
+    }
 
     // public int countUsers()
     // public int countGroups()

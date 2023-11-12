@@ -14,22 +14,25 @@ public class UserGroup extends Member {
         members = new ArrayList<>();
     }
 
+    public List<Member> getMembers() {
+        return this.members;
+    }
+
+    public void addMember(Member m) {
+        members.add(m);
+    }
+
     @Override
     public int getSize() {
-        int sum = 0;
-
-        for (Member m : members) {
-            sum += m.getSize();
-        }
-
-        return sum;
+        return this.getChildCount();
     }
 
     @Override
     public int getChildCount() {
         int sum = 0;
+
         while (this.children().hasMoreElements()) {
-            sum += this.children().nextElement().getChildCount();
+            sum += this.children().nextElement().getSize();
         }
         return sum;
     }
@@ -50,31 +53,9 @@ public class UserGroup extends Member {
     }
 
     @Override
-    public Enumeration<? extends TreeNode> children() {
+    public Enumeration<Member> children() {
         Enumeration<Member> e = Collections.enumeration(members);
         return e;
     }
 
-    // @Override
-    // public void insert(MutableTreeNode child, int index) {}
-
-    // @Override
-    // public void remove(int index) {}
-
-    // @Override
-    // public void remove(MutableTreeNode node) {}
-
-    // @Override
-    // public void setUserObject(Object object) {}
-
-    // @Override
-    // public void removeFromParent() {}
-
-    // @Override
-    // public void setParent(MutableTreeNode newParent) {}
-
-    // @Override
-    // public String toString() {
-    // return this.getName();
-    // }
 }

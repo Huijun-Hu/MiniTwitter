@@ -1,10 +1,12 @@
-package MiniTwitter;
+package GUI;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
+import MiniTwitter.User;
 
 public class UserFrame extends JFrame implements ActionListener {
 
@@ -13,7 +15,7 @@ public class UserFrame extends JFrame implements ActionListener {
     JPanel feedPanel = new JPanel();
     JButton postButton = new JButton("NEW POST");
 
-    UserFrame() {
+    UserFrame(User u) {
         this.setSize(450, 450);
         this.setResizable(false);
         this.setTitle("Mini Twitter");
