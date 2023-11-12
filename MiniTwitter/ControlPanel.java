@@ -12,7 +12,7 @@ import GUI.MainFrame;
 //Singleton pattern
 public class ControlPanel {
     protected static ControlPanel instance;
-    private HashMap<Integer, User> UserBank;
+    private HashMap<Integer, User> UserBank = new HashMap<>();
 
     private static JFrame frame;
 
@@ -28,14 +28,23 @@ public class ControlPanel {
     }
 
     public void initialize() {
-        frame = new MainFrame();
-        UserBank = new HashMap<>();
+        // frame = new MainFrame();
+        // UserBank = new HashMap<>();
+        // UserBank.put(12345, new User(12345, "Tracy"));
+        // UserBank.put(11, new User(11, "joe"));
 
+    }
+
+    public HashMap<Integer, User> getUserBank() {
+        return this.UserBank;
     }
 
     public void addUser(Integer id, String name, DefaultMutableTreeNode parent) {
 
-        parent.add(new DefaultMutableTreeNode(new User(id, name)));
+        User u = new User(id, name);
+        UserBank.put(id, u);
+        System.out.print(UserBank.toString());
+        parent.add(new DefaultMutableTreeNode(u));
     }
 
     public void addGroup(Integer id, String name, DefaultMutableTreeNode parent) {
