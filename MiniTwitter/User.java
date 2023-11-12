@@ -66,27 +66,7 @@ public class User extends Member {
     }
 
     @Override
-    int getSize() {
-        return size;
-    }
-
-    @Override
-    public TreeNode getChildAt(int childIndex) {
-        return null;
-    }
-
-    @Override
     public int getChildCount() {
-        return 0;
-    }
-
-    @Override
-    public TreeNode getParent() {
-        return null;
-    }
-
-    @Override
-    public int getIndex(TreeNode node) {
         return 0;
     }
 
@@ -105,10 +85,11 @@ public class User extends Member {
         return null;
     }
 
-    @Override
-    public String toString() {
-        return this.getName();
-    }
+    // @Override
+    // public void visit(User u) {
+    // System.out.println(
+    // "processing an XML element with uuid: " + xe.uuid);
+    // }
 
 }
 // Users can choose to follow other users (not user groups) by providing the

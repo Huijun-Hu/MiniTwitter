@@ -2,6 +2,9 @@ package MiniTwitter;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +13,8 @@ public class MainFrame extends JFrame implements ActionListener {
 
     JPanel TreeViewPanel;
     JTree tree;
-    DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root");
+    DefaultMutableTreeNode rootNode;
+    DefaultTreeModel treeModel;
 
     JTextField UserId;
     JTextField UserName;
@@ -113,16 +117,11 @@ public class MainFrame extends JFrame implements ActionListener {
         positivityButton.setText("Show Message Positivity");
         positivityButton.setFocusable(false);
 
+        rootNode = new DefaultMutableTreeNode(new UserGroup(000, "Root"));
         tree = new JTree(rootNode);
         tree.setBounds(10, 10, 180, 480);
-
-        DefaultMutableTreeNode a = new DefaultMutableTreeNode("a");
-        DefaultMutableTreeNode b = new DefaultMutableTreeNode("b");
-        DefaultMutableTreeNode a1 = new DefaultMutableTreeNode("a1");
-
-        rootNode.add(a);
-        rootNode.add(b);
-        a.add(a1);
+        tree.setCellRenderer(new MyTreeCellRenderer());
+        treeModel = (DefaultTreeModel) tree.getModel();
 
         TreeViewPanel.add(tree);
         this.add(TreeViewPanel);
@@ -150,22 +149,52 @@ public class MainFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public void addMember(Integer id, String name, DefaultMutableTreeNode parent) {
+    public void addUser(Integer id, String name, DefaultMutableTreeNode parent) {
 
+        // need edition
         parent.add(new DefaultMutableTreeNode(new User(id, name)));
+        treeModel.reload();
+    }
+
+    public void addGroup(Integer id, String name, DefaultMutableTreeNode parent) {
+
+        // need edition
+        parent.add(new DefaultMutableTreeNode(new UserGroup(id, name), true));
+        treeModel.reload();
+
+    }
+
+    public int countTotalUser() {
+        return rootNode.getChildCount();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        DefaultMutableTreeNode selection = rootNode;
         if (e.getSource() == userDetailButton) {
-            UserFrame userWindow = new UserFrame();
+            // UserFrame userWindow = new UserFrame();
         }
 
         if (e.getSource() == addUserButton) {
             if (UserId.getText() != null && UserName.getText() != null) {
                 // add to only root node
-                addMember(Integer.parseInt(UserId.getText()), UserName.getText(), rootNode);
+                addUser(Integer.parseInt(UserId.getText()), UserName.getText(), selection);
             }
         }
+
+        if (e.getSource() == addGroupButton) {
+            if (GroupId.getText() != null && GroupName.getText() != null) {
+                // add to only root node
+                addGroup(Integer.parseInt(GroupId.getText()), GroupName.getText(), selection);
+            }
+        }
+
+        if (e.getSource() == totalUserButton) {
+            System.out.print(countTotalUser());
+        }
     }
+
+    // public void accept(Member m){
+    // m.visit(this);
+    // }
 }

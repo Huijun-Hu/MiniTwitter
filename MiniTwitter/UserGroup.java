@@ -2,6 +2,7 @@ package MiniTwitter;
 
 import java.util.*;
 
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 public class UserGroup extends Member {
@@ -25,22 +26,12 @@ public class UserGroup extends Member {
     }
 
     @Override
-    public TreeNode getChildAt(int childIndex) {
-        return null;
-    }
-
-    @Override
     public int getChildCount() {
         int sum = 0;
         while (this.children().hasMoreElements()) {
             sum += this.children().nextElement().getChildCount();
         }
         return sum;
-    }
-
-    @Override
-    public TreeNode getParent() {
-        return null;
     }
 
     @Override
@@ -63,11 +54,27 @@ public class UserGroup extends Member {
         Enumeration<Member> e = Collections.enumeration(members);
         return e;
     }
+
+    // @Override
+    // public void insert(MutableTreeNode child, int index) {}
+
+    // @Override
+    // public void remove(int index) {}
+
+    // @Override
+    // public void remove(MutableTreeNode node) {}
+
+    // @Override
+    // public void setUserObject(Object object) {}
+
+    // @Override
+    // public void removeFromParent() {}
+
+    // @Override
+    // public void setParent(MutableTreeNode newParent) {}
+
+    // @Override
+    // public String toString() {
+    // return this.getName();
+    // }
 }
-// A user group has an unique ID, which can be used to group users. A user group
-// can
-// contain any number of users. The same user can only be included in one group.
-// Of
-// course, a user group can contain other user groups recursively. There is
-// always a root
-// group called Root to include everythin
