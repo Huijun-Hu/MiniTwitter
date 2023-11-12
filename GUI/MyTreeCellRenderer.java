@@ -20,7 +20,6 @@ public class MyTreeCellRenderer extends DefaultTreeCellRenderer {
         if (value instanceof DefaultMutableTreeNode) {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
             if (node.getUserObject() instanceof UserGroup) {
-                // your root node, since you just put a String as a user obj
                 setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
             }
 

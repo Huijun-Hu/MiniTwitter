@@ -3,6 +3,9 @@ package GUI;
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -14,7 +17,7 @@ import MiniTwitter.UserGroup;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainFrame extends JFrame implements ActionListener {
+public class MainFrame extends JFrame {
 
     private final ControlPanel ADMIN = ControlPanel.getInstance();
     JPanel TreeViewPanel;
@@ -84,19 +87,16 @@ public class MainFrame extends JFrame implements ActionListener {
 
         addUserButton = new JButton();
         addUserButton.setBounds(600, 120, 150, 50);
-        addUserButton.addActionListener(this);
         addUserButton.setText("ADD USER");
         addUserButton.setFocusable(false);
 
         addGroupButton = new JButton();
         addGroupButton.setBounds(600, 270, 150, 50);
-        addGroupButton.addActionListener(this);
         addGroupButton.setText("ADD GROUP");
         addGroupButton.setFocusable(false);
 
         userDetailButton = new JButton();
         userDetailButton.setBounds(350, 340, 350, 50);
-        userDetailButton.addActionListener(this);
         userDetailButton.setText("View User Detail");
         userDetailButton.setFocusable(false);
         // userDetailButton.setHorizontalTextPosition(JButton.CENTER);
@@ -104,25 +104,21 @@ public class MainFrame extends JFrame implements ActionListener {
 
         totalUserButton = new JButton();
         totalUserButton.setBounds(300, 410, 200, 50);
-        totalUserButton.addActionListener(this);
         totalUserButton.setText("Show User Total");
         totalUserButton.setFocusable(false);
 
         totalGroupButton = new JButton();
         totalGroupButton.setBounds(550, 410, 200, 50);
-        totalGroupButton.addActionListener(this);
         totalGroupButton.setText("Show Group Total");
         totalGroupButton.setFocusable(false);
 
         totalMsgButton = new JButton();
         totalMsgButton.setBounds(300, 480, 200, 50);
-        totalMsgButton.addActionListener(this);
         totalMsgButton.setText("Show Message Total");
         totalMsgButton.setFocusable(false);
 
         positivityButton = new JButton();
         positivityButton.setBounds(550, 480, 200, 50);
-        positivityButton.addActionListener(this);
         positivityButton.setText("Show Message Positivity");
         positivityButton.setFocusable(false);
 
@@ -165,6 +161,7 @@ public class MainFrame extends JFrame implements ActionListener {
         this.add(totalMsgButton);
         this.add(positivityButton);
 
+        setUpButtonListeners();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon logo = new ImageIcon("logo.png");
         this.setIconImage(logo.getImage());
@@ -173,38 +170,49 @@ public class MainFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // DefaultMutableTreeNode selection = rootNode;
-        if (e.getSource() == userDetailButton) {
-            User u = (User) selection.getUserObject();
-            System.out.println(u.getName());
-            UserFrame userWindow = new UserFrame(u);
-        }
+    public void setUpButtonListeners() {
 
-        if (e.getSource() == addUserButton) {
-            if (UserId.getText() != null && UserName.getText() != null) {
-                // add to only root node
-                ADMIN.addUser(Integer.parseInt(UserId.getText()), UserName.getText(), selection);
-                UserId.setText("");
-                UserName.setText("");
-                treeModel.reload();
+        ActionListener addUserBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (UserId.getText() != null && UserName.getText() != null) {
+                    ADMIN.addUser(Integer.parseInt(UserId.getText()), UserName.getText(), selection);
+                    UserId.setText("");
+                    UserName.setText("");
+                    treeModel.reload();
+                }
             }
-        }
+        };
+        addUserButton.addActionListener(addUserBL);
 
-        if (e.getSource() == addGroupButton) {
-            if (GroupId.getText() != null && GroupName.getText() != null) {
-                // add to only root node
+        ActionListener addGroupBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
                 ADMIN.addGroup(Integer.parseInt(GroupId.getText()), GroupName.getText(), selection);
                 GroupId.setText("");
                 GroupName.setText("");
                 treeModel.reload();
             }
-        }
 
-        if (e.getSource() == totalUserButton) {
-            ADMIN.countTotalUser(rootNode);
-        }
+        };
+        addGroupButton.addActionListener(addGroupBL);
+
+        ActionListener detailBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                User u = (User) selection.getUserObject();
+                UserFrame userWindow = new UserFrame(ADMIN, u);
+            }
+        };
+        userDetailButton.addActionListener(detailBL);
+
+        // JButton totalUserButton;
+        // JButton totalGroupButton;
+        // JButton totalMsgButton;
+        // JButton positivityButton;
+
     }
 
     // public void accept(Member m){
