@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.swing.tree.TreeNode;
 
+import GUI.UserFrame;
+
 public class User extends Member {
 
     private List<User> followers;
@@ -11,6 +13,7 @@ public class User extends Member {
     private final NotificationService notificationService;
     private Dictionary<User, String> feedList;
     private final int size = 1;
+    private UserFrame window;
 
     public User(int id, String name) {
         super(id, name);
@@ -20,6 +23,14 @@ public class User extends Member {
         feedList = new Hashtable<>();
         notificationService = new NotificationService(this);
 
+    }
+
+    public void setWindow(UserFrame w) {
+        this.window = w;
+    }
+
+    public UserFrame getWindow() {
+        return this.window;
     }
 
     public List<User> getFollowers() {
@@ -40,7 +51,7 @@ public class User extends Member {
         Enumeration<User> e = feedList.keys();
         while (e.hasMoreElements()) {
             User u = e.nextElement();
-            msgs.add(0, u.getName() + " : " + feedList.get(u));
+            msgs.add(u.getName() + " : " + feedList.get(u));
         }
         return msgs;
     }
@@ -48,7 +59,6 @@ public class User extends Member {
     public void follow(User u) {
         this.followings.add(u);
         u.beFollowedBy(this);
-
     }
 
     public void beFollowedBy(User u) {
@@ -62,6 +72,7 @@ public class User extends Member {
 
     public void update(User u, String msg) {
         feedList.put(u, msg);
+        window.updateFeed(u, msg);
     }
 
     @Override

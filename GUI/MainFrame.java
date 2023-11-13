@@ -204,6 +204,7 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 User u = (User) selection.getUserObject();
                 UserFrame userWindow = new UserFrame(ADMIN, u);
+                u.setWindow(userWindow);
             }
         };
         userDetailButton.addActionListener(detailBL);

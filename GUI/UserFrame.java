@@ -81,20 +81,16 @@ public class UserFrame extends JFrame {
         }
         follwingJList.setModel(followModel);
 
+        feedJList = new JList<>();
+        feedModel = new DefaultListModel<String>();
+        feedModel.addElement("COMMUNITY");
+        for (String s : user.getFeedList()) {
+            feedModel.addElement(s);
+        }
+        feedJList.setModel(feedModel);
+
         followingPanel.add(follwingJList);
         follwingJList.setBounds(10, 10, 130, 230);
-
-        // feedJList = new JList<>();
-        // feedModel = new DefaultListModel<String>();
-        // feedModel.addElement("COMMUNITY");
-        // for (String s : user.getFeedList()) {
-        // feedModel.addElement(s);
-
-        // }
-        // feedJList.setModel(feedModel);
-
-        feedJList = new JList<>(u.getFeedList().toArray(new String[u.getFeedList().size()]));
-
         feedPanel.add(feedJList);
         feedJList.setBounds(10, 10, 170, 210);
 
@@ -114,35 +110,26 @@ public class UserFrame extends JFrame {
         this.setVisible(true);
     }
 
+    public void updateFeed(User u, String msg) {
+
+        feedModel.addElement(u.getName() + " : " + msg);
+        feedJList.setModel(feedModel);
+    }
+
     public void setUpButtonListeners() {
 
         ActionListener feedBL = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                // feedJList.setModel(feedModel);
+                feedJList.setModel(feedModel);
                 user.postFeed(msgField.getText());
-                // feedModel.addElement(user.getName() + " : " + msgField.getText());
-                feedJList = new JList<>(user.getFeedList().toArray(new String[user.getFeedList().size()]));
-
-                feedPanel.add(feedJList);
-                feedJList.setBounds(10, 10, 170, 210);
+                // System.out.print(user.)
+                feedModel.addElement(user.getName() + " : " + msgField.getText());
                 msgField.setText("");
             }
         };
         postButton.addActionListener(feedBL);
-
-        // ActionListener feedBL = new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-
-        // feedJList.setModel(feedModel);
-        // user.postFeed(msgField.getText());
-        // feedModel.addElement(user.getName() + " : " + msgField.getText());
-        // msgField.setText("");
-        // }
-        // };
-        // postButton.addActionListener(feedBL);
 
         ActionListener followBL = new ActionListener() {
             @Override
