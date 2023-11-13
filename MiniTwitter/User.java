@@ -14,11 +14,12 @@ public class User extends Member {
 
     public User(int id, String name) {
         super(id, name);
-        notificationService = new NotificationService(this);
 
         followers = new ArrayList<>();
         followings = new ArrayList<>();
         feedList = new Hashtable<>();
+        notificationService = new NotificationService(this);
+
     }
 
     public List<User> getFollowers() {
@@ -33,8 +34,15 @@ public class User extends Member {
         return notificationService;
     }
 
-    public Dictionary<User, String> getFeedList() {
-        return feedList;
+    public List<String> getFeedList() {
+        List<String> msgs = new ArrayList<>();
+
+        Enumeration<User> e = feedList.keys();
+        while (e.hasMoreElements()) {
+            User u = e.nextElement();
+            msgs.add(0, u.getName() + " : " + feedList.get(u));
+        }
+        return msgs;
     }
 
     public void follow(User u) {

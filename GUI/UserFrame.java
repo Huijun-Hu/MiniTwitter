@@ -21,12 +21,13 @@ public class UserFrame extends JFrame {
     JTextField idField = new JTextField();
     JButton followButton = new JButton("Follow User");
 
-    JList<String> follwingJList;
-    DefaultListModel<String> model;
-    // JList feedJList;
-
     JTextField msgField = new JTextField();
     JButton postButton = new JButton("NEW POST");
+
+    JList<String> follwingJList;
+    DefaultListModel<String> followModel;
+    JList<String> feedJList;
+    DefaultListModel<String> feedModel;
 
     JLabel id = new JLabel("ID :");
 
@@ -48,7 +49,7 @@ public class UserFrame extends JFrame {
         infoPanel.setBounds(50, 20, 350, 40);
         infoPanel.setLayout(null);
 
-        // followingPanel.setBackground(Color.blue);
+        followingPanel.setBackground(Color.blue);
         followingPanel.setBounds(30, 80, 150, 250);
         followingPanel.setLayout(null);
 
@@ -58,6 +59,7 @@ public class UserFrame extends JFrame {
 
         feedPanel.setBackground(Color.blue);
         feedPanel.setBounds(230, 80, 190, 230);
+        feedPanel.setLayout(null);
 
         msgField.setBounds(230, 330, 200, 50);
         postButton.setBounds(330, 380, 100, 30);
@@ -66,22 +68,35 @@ public class UserFrame extends JFrame {
         idLabel.setBounds(10, 5, 100, 30);
 
         nameLabel = new JLabel("User Name : " + u.getName());
-        nameLabel.setBounds(200, 5, 120, 30);
+        nameLabel.setBounds(200, 5, 180, 30);
 
         infoPanel.add(idLabel);
         infoPanel.add(nameLabel);
 
         follwingJList = new JList<>();
-        model = new DefaultListModel<String>();
+        followModel = new DefaultListModel<String>();
+        followModel.addElement("YOUR FOLLWOINGS:");
         for (User x : user.getFollowings()) {
-            model.addElement(x.getName());
+            followModel.addElement(x.getName());
         }
-        follwingJList.setModel(model);
+        follwingJList.setModel(followModel);
 
         followingPanel.add(follwingJList);
-        follwingJList.setBounds(10, 10, 120, 200);
-        // reloadFollowing();
-        // reloadFeed();
+        follwingJList.setBounds(10, 10, 130, 230);
+
+        // feedJList = new JList<>();
+        // feedModel = new DefaultListModel<String>();
+        // feedModel.addElement("COMMUNITY");
+        // for (String s : user.getFeedList()) {
+        // feedModel.addElement(s);
+
+        // }
+        // feedJList.setModel(feedModel);
+
+        feedJList = new JList<>(u.getFeedList().toArray(new String[u.getFeedList().size()]));
+
+        feedPanel.add(feedJList);
+        feedJList.setBounds(10, 10, 170, 210);
 
         this.add(infoPanel);
         this.add(followingPanel);
@@ -93,38 +108,54 @@ public class UserFrame extends JFrame {
         this.add(postButton);
 
         this.setUpButtonListeners();
-        // Frame configuration
-        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // ImageIcon logo = new ImageIcon("logo.png");
-        // this.setIconImage(logo.getImage());
+
         this.setLayout(null);
         this.setBackground(Color.LIGHT_GRAY);
         this.setVisible(true);
     }
 
-    public void reloadFollowing() {
-
-        model = new DefaultListModel<String>();
-
-        for (User x : user.getFollowings()) {
-            model.addElement(x.getName());
-        }
-
-    }
-
     public void setUpButtonListeners() {
+
+        ActionListener feedBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                // feedJList.setModel(feedModel);
+                user.postFeed(msgField.getText());
+                // feedModel.addElement(user.getName() + " : " + msgField.getText());
+                feedJList = new JList<>(user.getFeedList().toArray(new String[user.getFeedList().size()]));
+
+                feedPanel.add(feedJList);
+                feedJList.setBounds(10, 10, 170, 210);
+                msgField.setText("");
+            }
+        };
+        postButton.addActionListener(feedBL);
+
+        // ActionListener feedBL = new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+
+        // feedJList.setModel(feedModel);
+        // user.postFeed(msgField.getText());
+        // feedModel.addElement(user.getName() + " : " + msgField.getText());
+        // msgField.setText("");
+        // }
+        // };
+        // postButton.addActionListener(feedBL);
 
         ActionListener followBL = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 user.follow(admin.getUserBank().get(Integer.parseInt(idField.getText())));
-                follwingJList.setModel(model);
-                model.addElement(admin.getUserBank().get(Integer.parseInt(idField.getText())).getName());
+                follwingJList.setModel(followModel);
+                followModel.addElement(admin.getUserBank().get(Integer.parseInt(idField.getText())).getName());
                 idField.setText("");
             }
         };
         followButton.addActionListener(followBL);
+
     }
 
 }
