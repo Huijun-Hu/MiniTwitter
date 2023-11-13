@@ -1,15 +1,12 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
 import MiniTwitter.ControlPanel;
 import MiniTwitter.GroupVisitor;
 import MiniTwitter.Member;
@@ -17,9 +14,7 @@ import MiniTwitter.User;
 import MiniTwitter.UserGroup;
 import MiniTwitter.UserVisitor;
 import MiniTwitter.Visitor;
-
 import java.awt.*;
-import java.awt.event.*;
 
 public class MainFrame extends JFrame {
 
@@ -285,7 +280,4 @@ public class MainFrame extends JFrame {
 
     }
 
-    // public void accept(Member m){
-    // m.visit(this);
-    // }
 }

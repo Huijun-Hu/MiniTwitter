@@ -1,23 +1,15 @@
 package MiniTwitter;
 
-import java.nio.file.attribute.UserDefinedFileAttributeView;
-import java.text.DecimalFormat;
 import java.util.*;
-
-import javax.swing.JFrame;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 
-import GUI.MainFrame;
-
-//Singleton pattern
 public class ControlPanel {
     protected static ControlPanel instance;
     private HashMap<Integer, User> UserBank = new HashMap<>();
     private List<String> feedBank = new ArrayList<>();
 
     protected ControlPanel() {
-        // initialize();
+
     }
 
     public static ControlPanel getInstance() {
@@ -25,14 +17,6 @@ public class ControlPanel {
             instance = new ControlPanel();
         }
         return instance;
-    }
-
-    public void initialize() {
-        // frame = new MainFrame();
-        // UserBank = new HashMap<>();
-        // UserBank.put(12345, new User(12345, "Tracy"));
-        // UserBank.put(11, new User(11, "joe"));
-
     }
 
     public HashMap<Integer, User> getUserBank() {
@@ -84,12 +68,4 @@ public class ControlPanel {
         return "Post Positivity: " + pos * 100 / countFeed() + "%";
     }
 
-    // create users and user groups
-    // 1) output the total number of users;
-    // 2) output the total number of groups;
-    // 3) output the total number of Tweet messages in all the users’ news feed;
-    // 4) output the percentage of the positive
-    // Tweet messages in all the users’ news feed (the message containing positive
-    // words,
-    // such as good, great, excellent, etc.) Free free to decide the positive word
 }

@@ -1,9 +1,6 @@
 package MiniTwitter;
 
 import java.util.*;
-
-import javax.swing.tree.TreeNode;
-
 import GUI.UserFrame;
 
 public class User extends Member {
@@ -99,11 +96,4 @@ public class User extends Member {
     public Enumeration<Member> children() {
         return null;
     }
-
-    // @Override
-    // public void visit(User u) {
-    // System.out.println(
-    // "processing an XML element with uuid: " + xe.uuid);
-    // }
-
 }

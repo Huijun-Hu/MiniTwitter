@@ -1,22 +1,22 @@
-package MiniTwitter;
+// package MiniTwitter;
 
-import java.util.*;
+// import java.util.*;
 
-public class CompositeGroup extends UserGroup {
-    private List<Member> members;
+// public class CompositeGroup extends UserGroup {
+// private List<Member> members;
 
-    public CompositeGroup(int id, String name) {
-        super(id, name);
-        members = new ArrayList<>();
-    }
+// public CompositeGroup(int id, String name) {
+// super(id, name);
+// members = new ArrayList<>();
+// }
 
-    public int getSize() {
-        int sum = 0;
+// public int getSize() {
+// int sum = 0;
 
-        for (Member m : members) {
-            sum += m.getSize();
-        }
+// for (Member m : members) {
+// sum += m.getSize();
+// }
 
-        return sum;
-    }
-}
+// return sum;
+// }
+// }

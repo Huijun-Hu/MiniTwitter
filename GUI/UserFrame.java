@@ -5,12 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import MiniTwitter.ControlPanel;
 import MiniTwitter.User;
 
@@ -47,7 +42,6 @@ public class UserFrame extends JFrame {
         this.setResizable(false);
         this.setTitle("Mini Twitter");
 
-        // infoPanel.setBorder();
         infoPanel.setBounds(50, 20, 350, 40);
         infoPanel.setLayout(null);
 
@@ -154,7 +148,5 @@ public class UserFrame extends JFrame {
             }
         };
         followButton.addActionListener(followBL);
-
     }
-
 }

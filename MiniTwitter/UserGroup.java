@@ -1,8 +1,6 @@
 package MiniTwitter;
 
 import java.util.*;
-
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 public class UserGroup extends Member {
@@ -29,12 +27,7 @@ public class UserGroup extends Member {
 
     @Override
     public int getChildCount() {
-        // int sum = 0;
-
-        // while (this.children().hasMoreElements()) {
-        // sum += this.children().nextElement().getSize();
-        // }
-        // return sum;
+        // use visitor pattern to count child and difficiate different child type
         return 0;
     }
 
