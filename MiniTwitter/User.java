@@ -76,8 +76,8 @@ public class User extends Member {
     }
 
     @Override
-    public int getSize() {
-        return 1;
+    public int accept(Visitor v) {
+        return v.visit(this);
     }
 
     @Override

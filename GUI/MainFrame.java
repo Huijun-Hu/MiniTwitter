@@ -11,9 +11,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import MiniTwitter.ControlPanel;
+import MiniTwitter.GroupVisitor;
 import MiniTwitter.Member;
 import MiniTwitter.User;
 import MiniTwitter.UserGroup;
+import MiniTwitter.UserVisitor;
+import MiniTwitter.Visitor;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -21,10 +24,11 @@ import java.awt.event.*;
 public class MainFrame extends JFrame {
 
     private final ControlPanel ADMIN = ControlPanel.getInstance();
+
     JPanel TreeViewPanel;
     JTree tree;
     DefaultMutableTreeNode rootNode;
-    Member root;
+    UserGroup root;
     DefaultTreeModel treeModel;
 
     JTextField UserId;
@@ -220,8 +224,13 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                Visitor visitor = new UserVisitor();
+                int sum = 0;
+                for (Member m : root.getMembers()) {
+                    sum += m.accept(visitor);
+                }
                 JDialog d = new JDialog();
-                d.add(new JLabel(ADMIN.countUsers() + " Total User"));
+                d.add(new JLabel(sum + " Total User"));
                 // d.(Alignment.CENTER);
                 d.setSize(200, 100);
                 d.setLocation(500, 500);
@@ -234,7 +243,17 @@ public class MainFrame extends JFrame {
         ActionListener groupCountlBL = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ADMIN.countGroups();
+                Visitor visitor = new GroupVisitor();
+                int sum = 0;
+                for (Member m : root.getMembers()) {
+                    sum += m.accept(visitor);
+                }
+                JDialog d = new JDialog();
+                d.add(new JLabel(sum + " Total Group"));
+                // d.(Alignment.CENTER);
+                d.setSize(200, 100);
+                d.setLocation(500, 500);
+                d.setVisible(true);
             }
         };
         totalGroupButton.addActionListener(groupCountlBL);

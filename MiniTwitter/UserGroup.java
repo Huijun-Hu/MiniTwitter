@@ -23,18 +23,19 @@ public class UserGroup extends Member {
     }
 
     @Override
-    public int getSize() {
-        return this.getChildCount();
+    public int accept(Visitor v) {
+        return v.visit(this);
     }
 
     @Override
     public int getChildCount() {
-        int sum = 0;
+        // int sum = 0;
 
-        while (this.children().hasMoreElements()) {
-            sum += this.children().nextElement().getSize();
-        }
-        return sum;
+        // while (this.children().hasMoreElements()) {
+        // sum += this.children().nextElement().getSize();
+        // }
+        // return sum;
+        return 0;
     }
 
     @Override

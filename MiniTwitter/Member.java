@@ -21,7 +21,7 @@ public abstract class Member extends Object implements MutableTreeNode {
         return name;
     }
 
-    abstract int getSize();
+    public abstract int accept(Visitor vistor);
 
     @Override
     public TreeNode getParent() {

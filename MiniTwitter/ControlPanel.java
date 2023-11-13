@@ -16,8 +16,6 @@ public class ControlPanel {
     private HashMap<Integer, User> UserBank = new HashMap<>();
     private List<String> feedBank = new ArrayList<>();
 
-    private static JFrame frame;
-
     protected ControlPanel() {
         // initialize();
     }
@@ -43,7 +41,9 @@ public class ControlPanel {
 
     public void addUser(Integer id, String name, DefaultMutableTreeNode parent) {
 
+        UserGroup obj = (UserGroup) parent.getUserObject();
         User u = new User(id, name);
+        obj.addMember(u);
         UserBank.put(id, u);
         parent.add(new DefaultMutableTreeNode(u));
     }
@@ -60,14 +60,6 @@ public class ControlPanel {
     public void storePost(String s) {
         feedBank.add(s);
     }
-
-    // Member m = (Member) rootNode.getUserObject();
-    // System.out.print(m.getChildCount());
-    // }
-
-    // public void countTotalGroup(DefaultMutableTreeNode rootNode) {
-
-    // }
 
     public int countUsers() {
         return UserBank.size();
