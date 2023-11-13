@@ -3,6 +3,8 @@ package GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -108,6 +110,13 @@ public class UserFrame extends JFrame {
         this.setLayout(null);
         this.setBackground(Color.LIGHT_GRAY);
         this.setVisible(true);
+
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+                Frame frame = (Frame) evt.getSource();
+                frame.setVisible(false);
+            }
+        });
     }
 
     public void updateFeed(User u, String msg) {
@@ -122,10 +131,13 @@ public class UserFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                feedJList.setModel(feedModel);
-                user.postFeed(msgField.getText());
-                // System.out.print(user.)
-                feedModel.addElement(user.getName() + " : " + msgField.getText());
+                if (msgField.getText() != null) {
+                    feedJList.setModel(feedModel);
+                    user.postFeed(msgField.getText());
+                    admin.storePost(msgField.getText());
+                    feedModel.addElement(user.getName() + " : " + msgField.getText());
+                }
+
                 msgField.setText("");
             }
         };

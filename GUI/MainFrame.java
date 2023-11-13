@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import java.awt.event.ActionEvent;
@@ -203,16 +204,65 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 User u = (User) selection.getUserObject();
-                UserFrame userWindow = new UserFrame(ADMIN, u);
-                u.setWindow(userWindow);
+                if (u.getWindow() == null) {
+                    UserFrame userWindow = new UserFrame(ADMIN, u);
+                    u.setWindow(userWindow);
+
+                } else {
+                    u.getWindow().setVisible(true);
+                }
+
             }
         };
         userDetailButton.addActionListener(detailBL);
 
-        // JButton totalUserButton;
-        // JButton totalGroupButton;
-        // JButton totalMsgButton;
-        // JButton positivityButton;
+        ActionListener userCountlBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JDialog d = new JDialog();
+                d.add(new JLabel(ADMIN.countUsers() + " Total User"));
+                // d.(Alignment.CENTER);
+                d.setSize(200, 100);
+                d.setLocation(500, 500);
+                d.setVisible(true);
+
+            }
+        };
+        totalUserButton.addActionListener(userCountlBL);
+
+        ActionListener groupCountlBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ADMIN.countGroups();
+            }
+        };
+        totalGroupButton.addActionListener(groupCountlBL);
+
+        ActionListener totalMsgBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JDialog d = new JDialog();
+                d.add(new JLabel(ADMIN.countFeed() + " Total Posts"));
+                d.setLocation(500, 500);
+                d.setSize(200, 100);
+                d.setVisible(true);
+            }
+        };
+        totalMsgButton.addActionListener(totalMsgBL);
+
+        ActionListener posBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog d = new JDialog();
+                d.add(new JLabel(ADMIN.positivity()));
+                d.setLocation(500, 500);
+                d.setSize(200, 100);
+                d.setVisible(true);
+            }
+        };
+        positivityButton.addActionListener(posBL);
 
     }
 

@@ -1,6 +1,7 @@
 package MiniTwitter;
 
 import java.nio.file.attribute.UserDefinedFileAttributeView;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import GUI.MainFrame;
 public class ControlPanel {
     protected static ControlPanel instance;
     private HashMap<Integer, User> UserBank = new HashMap<>();
+    private List<String> feedBank = new ArrayList<>();
 
     private static JFrame frame;
 
@@ -43,7 +45,6 @@ public class ControlPanel {
 
         User u = new User(id, name);
         UserBank.put(id, u);
-        System.out.print(UserBank.toString());
         parent.add(new DefaultMutableTreeNode(u));
     }
 
@@ -56,21 +57,40 @@ public class ControlPanel {
 
     }
 
-    public void countTotalUser(DefaultMutableTreeNode rootNode) {
-
-        Member m = (Member) rootNode.getUserObject();
-        System.out.print(m.getChildCount());
+    public void storePost(String s) {
+        feedBank.add(s);
     }
 
-    public void countTotalGroup(DefaultMutableTreeNode rootNode) {
+    // Member m = (Member) rootNode.getUserObject();
+    // System.out.print(m.getChildCount());
+    // }
 
+    // public void countTotalGroup(DefaultMutableTreeNode rootNode) {
+
+    // }
+
+    public int countUsers() {
+        return UserBank.size();
     }
 
-    // public int countUsers()
-    // public int countGroups()
-    // public int countFeed()
+    public int countGroups() {
+        return 0;
+    }
 
-    // public String positivity()
+    public int countFeed() {
+        return feedBank.size();
+    }
+
+    public String positivity() {
+        int pos = 0;
+        for (String s : feedBank) {
+            if (s.contains("happy") || s.contains("good") || s.contains("nice") || s.contains("excellent")
+                    || s.contains("great")) {
+                pos += 1;
+            }
+        }
+        return "Post Positivity: " + pos * 100 / countFeed() + "%";
+    }
 
     // create users and user groups
     // 1) output the total number of users;
