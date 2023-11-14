@@ -163,8 +163,7 @@ public class MainFrame extends JFrame {
 
         setUpButtonListeners();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ImageIcon logo = new ImageIcon("logo.png");
-        this.setIconImage(logo.getImage());
+        this.setLocation(600, 300);
         this.setLayout(null);
         this.getContentPane().setBackground(Color.LIGHT_GRAY);
         this.setVisible(true);
@@ -225,8 +224,7 @@ public class MainFrame extends JFrame {
                     sum += m.accept(visitor);
                 }
                 JDialog d = new JDialog();
-                d.add(new JLabel(sum + " Total User"));
-                // d.(Alignment.CENTER);
+                d.add(new JLabel(sum + " Total User", SwingConstants.CENTER));
                 d.setSize(200, 100);
                 d.setLocation(500, 500);
                 d.setVisible(true);
@@ -244,8 +242,7 @@ public class MainFrame extends JFrame {
                     sum += m.accept(visitor);
                 }
                 JDialog d = new JDialog();
-                d.add(new JLabel(sum + " Total Group"));
-                // d.(Alignment.CENTER);
+                d.add(new JLabel(sum + " Total Group", SwingConstants.CENTER));
                 d.setSize(200, 100);
                 d.setLocation(500, 500);
                 d.setVisible(true);
@@ -258,7 +255,7 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 JDialog d = new JDialog();
-                d.add(new JLabel(ADMIN.countFeed() + " Total Posts"));
+                d.add(new JLabel(ADMIN.countFeed() + " Total Posts", SwingConstants.CENTER));
                 d.setLocation(500, 500);
                 d.setSize(200, 100);
                 d.setVisible(true);
@@ -270,7 +267,7 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JDialog d = new JDialog();
-                d.add(new JLabel(ADMIN.positivity()));
+                d.add(new JLabel(ADMIN.positivity(), SwingConstants.CENTER));
                 d.setLocation(500, 500);
                 d.setSize(200, 100);
                 d.setVisible(true);

@@ -45,7 +45,7 @@ public class UserFrame extends JFrame {
         infoPanel.setBounds(50, 20, 350, 40);
         infoPanel.setLayout(null);
 
-        followingPanel.setBackground(Color.blue);
+        followingPanel.setBackground(new java.awt.Color(90, 88, 88));
         followingPanel.setBounds(30, 80, 150, 250);
         followingPanel.setLayout(null);
 
@@ -53,7 +53,7 @@ public class UserFrame extends JFrame {
         idField.setBounds(85, 350, 100, 30);
         followButton.setBounds(30, 380, 150, 30);
 
-        feedPanel.setBackground(Color.blue);
+        feedPanel.setBackground(new java.awt.Color(90, 88, 88));
         feedPanel.setBounds(230, 80, 190, 230);
         feedPanel.setLayout(null);
 
@@ -61,9 +61,11 @@ public class UserFrame extends JFrame {
         postButton.setBounds(330, 380, 100, 30);
 
         idLabel = new JLabel("User id : " + u.getId());
+        idLabel.setFont(new Font("Monospaced", Font.BOLD, 14));
         idLabel.setBounds(10, 5, 100, 30);
 
         nameLabel = new JLabel("User Name : " + u.getName());
+        nameLabel.setFont(new Font("Monospaced", Font.BOLD, 14));
         nameLabel.setBounds(200, 5, 180, 30);
 
         infoPanel.add(idLabel);
@@ -100,7 +102,7 @@ public class UserFrame extends JFrame {
         this.add(postButton);
 
         this.setUpButtonListeners();
-
+        this.setLocation(700, 400);
         this.setLayout(null);
         this.setBackground(Color.LIGHT_GRAY);
         this.setVisible(true);
