@@ -9,7 +9,6 @@ public class User extends Member {
     private List<User> followings;
     private final NotificationService notificationService;
     private Dictionary<User, String> feedList;
-    private final int size = 1;
     private UserFrame window;
 
     public User(int id, String name) {
