@@ -42,7 +42,7 @@ public class UserFrame extends JFrame {
         this.setResizable(false);
         this.setTitle("Mini Twitter");
 
-        infoPanel.setBounds(50, 20, 350, 40);
+        infoPanel.setBounds(50, 20, 400, 40);
         infoPanel.setLayout(null);
 
         followingPanel.setBackground(new java.awt.Color(90, 88, 88));
@@ -62,11 +62,11 @@ public class UserFrame extends JFrame {
 
         idLabel = new JLabel("User id : " + u.getId());
         idLabel.setFont(new Font("Monospaced", Font.BOLD, 14));
-        idLabel.setBounds(10, 5, 100, 30);
+        idLabel.setBounds(10, 5, 200, 30);
 
         nameLabel = new JLabel("User Name : " + u.getName());
         nameLabel.setFont(new Font("Monospaced", Font.BOLD, 14));
-        nameLabel.setBounds(200, 5, 180, 30);
+        nameLabel.setBounds(200, 5, 280, 30);
 
         infoPanel.add(idLabel);
         infoPanel.add(nameLabel);

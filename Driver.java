@@ -1,3 +1,8 @@
+/* 
+* CS3560 MiniTwitter
+* @author Huijun Hu
+*/
+
 import javax.swing.JFrame;
 import GUI.MainFrame;
 
