@@ -49,12 +49,6 @@ public class ControlPanel {
         feedBank.add(s);
     }
 
-    
-
-    public int countGroups() {
-        return 0;
-    }
-
     public int countFeed() {
         return feedBank.size();
     }
