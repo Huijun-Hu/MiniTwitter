@@ -191,7 +191,7 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (UserId.getText() != null && UserName.getText() != null) {
-                    ADMIN.addUser(Integer.parseInt(UserId.getText()), UserName.getText(), selection);
+                    ADMIN.addUser(Integer.parseInt(UserId.getText().replaceAll(" ", "")), UserName.getText(), selection);
                     if(UserId.getText().contains(" ")){
                         ADMIN.setIDContainsSpace(true);
                     }
@@ -207,12 +207,16 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ADMIN.addGroup(Integer.parseInt(GroupId.getText()), GroupName.getText(), selection);
-                GroupId.setText("");
-                GroupName.setText("");
-                treeModel.reload();
+                if (GroupId.getText() != null && GroupName.getText() != null) {
+                    ADMIN.addGroup(Integer.parseInt(GroupId.getText().replaceAll(" ", "")), GroupName.getText(), selection);
+                    if(GroupId.getText().contains(" ")){
+                        ADMIN.setIDContainsSpace(true);
+                    }
+                    GroupId.setText("");
+                    GroupName.setText("");
+                    treeModel.reload();
+                }
             }
-
         };
         addGroupButton.addActionListener(addGroupBL);
 
@@ -311,7 +315,7 @@ public class MainFrame extends JFrame {
                 JDialog d = new JDialog();
                 d.add(new JLabel(ADMIN.lastUpdate(), SwingConstants.CENTER));
                 d.setLocation(500, 500);
-                d.setSize(200, 100);
+                d.setSize(400,100);
                 d.setVisible(true);
             }
         };

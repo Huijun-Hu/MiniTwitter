@@ -88,6 +88,23 @@ public class ControlPanel {
         return idContainsSpace;
     }
     public String lastUpdate(){
-        return "";
+        String prompt =  "User IDs who got lateset update: ";
+
+        long l = 0;
+        Iterator<User> i = userBank.values().iterator();
+        while(i.hasNext()){
+            User u = i.next();
+            if(u.getLastUpdateTime()>l){
+                l = u.getLastUpdateTime();
+            }
+        }
+        Iterator<User> ii = userBank.values().iterator();
+        while(ii.hasNext()){
+            User u = ii.next();
+            if(u.getLastUpdateTime() == l){
+                prompt = prompt + u.getName() +"("+u.getId()+") ";
+            }
+        }
+        return prompt;
     }
 }

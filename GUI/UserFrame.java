@@ -6,9 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-
 import MiniTwitter.ControlPanel;
 import MiniTwitter.User;
 
@@ -135,7 +132,7 @@ public class UserFrame extends JFrame {
 
         feedModel.addElement(u.getName() + " : " + msg);
         feedJList.setModel(feedModel);
-        lastUpdateLabel.setText("Last Update Time: " + u.getLastUpdateTime());
+        lastUpdateLabel.setText("Last Update Time: " + user.getLastUpdateTime());
 
     }
 
@@ -144,23 +141,6 @@ public class UserFrame extends JFrame {
     }
 
     public void setUpButtonListeners() {
-
-        ListDataListener last = new ListDataListener() {
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                lastUpdateLabel.setText("Last Update Time: " + user.getLastUpdateTime());
-                
-            }
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-                lastUpdateLabel.setText("Last Update Time: " + user.getLastUpdateTime());
-            }
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
-                
-            }
-        };
-        feedModel.addListDataListener(last);
 
         ActionListener feedBL = new ActionListener() {
             @Override
