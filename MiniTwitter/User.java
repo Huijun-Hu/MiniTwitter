@@ -10,6 +10,7 @@ public class User extends Member {
     private final NotificationService notificationService;
     private Dictionary<User, String> feedList;
     private UserFrame window;
+    private long lastUpdateTime;
 
     public User(int id, String name) {
         super(id, name);
@@ -41,6 +42,14 @@ public class User extends Member {
         return notificationService;
     }
 
+    public void setLastUpdateTime(long time){
+        lastUpdateTime = time;
+    }
+
+    public long getLastUpdateTime(){
+        return lastUpdateTime;
+    }
+
     public List<String> getFeedList() {
         List<String> msgs = new ArrayList<>();
 
@@ -63,12 +72,15 @@ public class User extends Member {
 
     public void postFeed(String msg) {
         feedList.put(this, msg);
+        this.setLastUpdateTime(System.currentTimeMillis());
         notificationService.newFeed(this, msg);
     }
 
     public void update(User u, String msg) {
         feedList.put(u, msg);
         window.updateFeed(u, msg);
+        u.setLastUpdateTime(System.currentTimeMillis());
+        u.getWindow().getLastUpdateLabel().setText("Last Update Time: " + u.getLastUpdateTime());
     }
 
     @Override

@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+
 import MiniTwitter.ControlPanel;
 import MiniTwitter.User;
 
@@ -32,6 +35,7 @@ public class UserFrame extends JFrame {
     JLabel idLabel;
     JLabel nameLabel;
     JLabel timeLabel;
+    JLabel lastUpdateLabel;
 
     User user;
     ControlPanel admin;
@@ -74,6 +78,10 @@ public class UserFrame extends JFrame {
         timeLabel.setFont(new Font("Monospaced", Font.ITALIC,10));
         timeLabel.setBounds(0, 0, 300, 30);
 
+        lastUpdateLabel = new JLabel("Last Update Time: " + u.getLastUpdateTime());
+        lastUpdateLabel.setFont(new Font("Monospaced", Font.ITALIC,10));
+        lastUpdateLabel.setBounds(250, 0, 300, 30);
+
         infoPanel.add(idLabel);
         infoPanel.add(nameLabel);
 
@@ -107,7 +115,7 @@ public class UserFrame extends JFrame {
         this.add(msgField);
         this.add(postButton);
         this.add(timeLabel);
-
+        this.add(lastUpdateLabel);
 
         this.setUpButtonListeners();
         this.setLocation(700, 400);
@@ -129,7 +137,28 @@ public class UserFrame extends JFrame {
         feedJList.setModel(feedModel);
     }
 
+    public JLabel getLastUpdateLabel(){
+        return lastUpdateLabel;
+    }
+
     public void setUpButtonListeners() {
+
+        ListDataListener last = new ListDataListener() {
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                lastUpdateLabel.setText("Last Update Time: " + user.getLastUpdateTime());
+                
+            }
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+                lastUpdateLabel.setText("Last Update Time: " + user.getLastUpdateTime());
+            }
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+                
+            }
+        };
+        feedModel.addListDataListener(last);
 
         ActionListener feedBL = new ActionListener() {
             @Override
@@ -143,6 +172,7 @@ public class UserFrame extends JFrame {
                 }
 
                 msgField.setText("");
+                lastUpdateLabel.setText("Last Update Time: " + user.getLastUpdateTime());
             }
         };
         postButton.addActionListener(feedBL);
@@ -151,7 +181,7 @@ public class UserFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                user.follow(admin.getUserBank().get(Integer.parseInt(idField.getText())));
+                user.follow(admin.getMemberBank().get(Integer.parseInt(idField.getText())));
                 follwingJList.setModel(followModel);
                 followModel.addElement(admin.getUserBank().get(Integer.parseInt(idField.getText())).getName());
                 idField.setText("");

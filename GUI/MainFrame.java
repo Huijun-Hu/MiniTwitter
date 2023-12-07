@@ -44,6 +44,9 @@ public class MainFrame extends JFrame {
     JButton totalMsgButton;
     JButton positivityButton;
 
+    JButton valiButton;
+    JButton lastPostButton;
+
     DefaultMutableTreeNode selection;
 
     public MainFrame() {
@@ -122,6 +125,16 @@ public class MainFrame extends JFrame {
         positivityButton.setText("Show Message Positivity");
         positivityButton.setFocusable(false);
 
+        valiButton = new JButton();
+        valiButton.setBounds(300, 530, 200, 30);
+        valiButton.setText("Validate IDs");
+        valiButton.setFocusable(false);
+
+        lastPostButton = new JButton();
+        lastPostButton.setBounds(550, 530, 200, 30);
+        lastPostButton.setText("Last Update");
+        lastPostButton.setFocusable(false);
+
         root = new UserGroup(000, "Root");
         rootNode = new DefaultMutableTreeNode(root);
         tree = new JTree(rootNode);
@@ -160,6 +173,8 @@ public class MainFrame extends JFrame {
         this.add(totalGroupButton);
         this.add(totalMsgButton);
         this.add(positivityButton);
+        this.add(valiButton);
+        this.add(lastPostButton);
 
         setUpButtonListeners();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -177,6 +192,9 @@ public class MainFrame extends JFrame {
 
                 if (UserId.getText() != null && UserName.getText() != null) {
                     ADMIN.addUser(Integer.parseInt(UserId.getText()), UserName.getText(), selection);
+                    if(UserId.getText().contains(" ")){
+                        ADMIN.setIDContainsSpace(true);
+                    }
                     UserId.setText("");
                     UserName.setText("");
                     treeModel.reload();
@@ -274,6 +292,30 @@ public class MainFrame extends JFrame {
             }
         };
         positivityButton.addActionListener(posBL);
+
+        ActionListener valBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog d = new JDialog();
+                d.add(new JLabel(ADMIN.validation(), SwingConstants.CENTER));
+                d.setLocation(500, 500);
+                d.setSize(200, 100);
+                d.setVisible(true);
+            }
+        };
+        valiButton.addActionListener(valBL);
+
+       ActionListener lastBL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog d = new JDialog();
+                d.add(new JLabel(ADMIN.lastUpdate(), SwingConstants.CENTER));
+                d.setLocation(500, 500);
+                d.setSize(200, 100);
+                d.setVisible(true);
+            }
+        };
+        lastPostButton.addActionListener(lastBL);
 
     }
 
