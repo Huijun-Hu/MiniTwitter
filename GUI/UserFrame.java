@@ -9,6 +9,7 @@ import javax.swing.*;
 import MiniTwitter.ControlPanel;
 import MiniTwitter.User;
 
+
 public class UserFrame extends JFrame {
 
     JPanel infoPanel = new JPanel();
@@ -30,6 +31,7 @@ public class UserFrame extends JFrame {
 
     JLabel idLabel;
     JLabel nameLabel;
+    JLabel timeLabel;
 
     User user;
     ControlPanel admin;
@@ -68,6 +70,10 @@ public class UserFrame extends JFrame {
         nameLabel.setFont(new Font("Monospaced", Font.BOLD, 14));
         nameLabel.setBounds(200, 5, 280, 30);
 
+        timeLabel = new JLabel("Creation Time: " + u.getCreationTime());
+        timeLabel.setFont(new Font("Monospaced", Font.ITALIC,10));
+        timeLabel.setBounds(0, 0, 300, 30);
+
         infoPanel.add(idLabel);
         infoPanel.add(nameLabel);
 
@@ -100,6 +106,8 @@ public class UserFrame extends JFrame {
         this.add(followButton);
         this.add(msgField);
         this.add(postButton);
+        this.add(timeLabel);
+
 
         this.setUpButtonListeners();
         this.setLocation(700, 400);

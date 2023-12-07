@@ -7,10 +7,12 @@ public abstract class Member extends Object implements MutableTreeNode {
 
     private int id;
     private String name;
+    private long creationTime;
 
     public Member(int id, String name) {
         this.id = id;
         this.name = name;
+        setCreationTime();
     }
 
     public int getId() {
@@ -19,6 +21,14 @@ public abstract class Member extends Object implements MutableTreeNode {
 
     public String getName() {
         return name;
+    }
+
+    public void setCreationTime() {
+        creationTime =System.currentTimeMillis();
+    }
+
+    public long getCreationTime(){
+        return creationTime;
     }
 
     public abstract int accept(Visitor vistor);
