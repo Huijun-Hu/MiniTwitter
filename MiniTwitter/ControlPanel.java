@@ -5,8 +5,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class ControlPanel {
     protected static ControlPanel instance;
-    private HashMap<Integer, User> UserBank = new HashMap<>();
+    private HashMap<Integer, User> userBank = new HashMap<>();
+    private List<Integer> idBank = new ArrayList<>();
     private List<String> feedBank = new ArrayList<>();
+    private Boolean idContainsSpace = false;
 
     protected ControlPanel() {
 
@@ -19,8 +21,8 @@ public class ControlPanel {
         return instance;
     }
 
-    public HashMap<Integer, User> getUserBank() {
-        return this.UserBank;
+    public HashMap<Integer,User> getUserBank() {
+        return this.userBank;
     }
 
     public void addUser(Integer id, String name, DefaultMutableTreeNode parent) {
@@ -28,7 +30,8 @@ public class ControlPanel {
         UserGroup obj = (UserGroup) parent.getUserObject();
         User u = new User(id, name);
         obj.addMember(u);
-        UserBank.put(id, u);
+        userBank.put(id,u);
+        idBank.add(id);
         parent.add(new DefaultMutableTreeNode(u));
     }
 
@@ -37,6 +40,7 @@ public class ControlPanel {
         UserGroup obj = (UserGroup) parent.getUserObject();
         UserGroup m = new UserGroup(id, name);
         obj.addMember(m);
+        idBank.add(id);
         parent.add(new DefaultMutableTreeNode(m, true));
 
     }
@@ -45,9 +49,7 @@ public class ControlPanel {
         feedBank.add(s);
     }
 
-    public int countUsers() {
-        return UserBank.size();
-    }
+    
 
     public int countGroups() {
         return 0;
@@ -68,4 +70,24 @@ public class ControlPanel {
         return "Post Positivity: " + pos * 100 / countFeed() + "%";
     }
 
+    public String validation(){
+        Set <Integer> set = new HashSet<>(idBank);
+        if(set.size()==idBank.size()&&!idContainsSpace){
+            return "IDs are Valid";
+        }
+        else{
+            return "IDs are Not Valid";
+
+        }
+        
+    }
+    public void setIDContainsSpace(Boolean b){
+        idContainsSpace = b;
+    }
+    public Boolean getIDContainsSpace(){
+        return idContainsSpace;
+    }
+    public String lastUpdate(){
+        return "";
+    }
 }

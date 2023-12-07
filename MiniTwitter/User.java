@@ -78,9 +78,8 @@ public class User extends Member {
 
     public void update(User u, String msg) {
         feedList.put(u, msg);
-        window.updateFeed(u, msg);
         u.setLastUpdateTime(System.currentTimeMillis());
-        u.getWindow().getLastUpdateLabel().setText("Last Update Time: " + u.getLastUpdateTime());
+        window.updateFeed(u, msg);
     }
 
     @Override

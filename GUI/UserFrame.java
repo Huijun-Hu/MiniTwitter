@@ -135,6 +135,8 @@ public class UserFrame extends JFrame {
 
         feedModel.addElement(u.getName() + " : " + msg);
         feedJList.setModel(feedModel);
+        lastUpdateLabel.setText("Last Update Time: " + u.getLastUpdateTime());
+
     }
 
     public JLabel getLastUpdateLabel(){
@@ -181,7 +183,7 @@ public class UserFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                user.follow(admin.getMemberBank().get(Integer.parseInt(idField.getText())));
+                user.follow(admin.getUserBank().get(Integer.parseInt(idField.getText())));
                 follwingJList.setModel(followModel);
                 followModel.addElement(admin.getUserBank().get(Integer.parseInt(idField.getText())).getName());
                 idField.setText("");
